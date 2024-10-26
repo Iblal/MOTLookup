@@ -14,7 +14,7 @@
 
         public DateTime FirstUsedDate { get; set; }
 
-        public List<MOTAPIResponse> MotTests { get; set; }
+        public List<MOTTestApiResponse> MotTests { get; set; }
 
     }
 }
