@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MOTLookup.Infrastructure\MOTLookup.Infrastructure.csproj" />
+    <ProjectReference Include="..\MOTLookup.Models\MOTLookup.Models.csproj" />
+  </ItemGroup>
+
 </Project>
