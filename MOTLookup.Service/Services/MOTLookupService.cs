@@ -6,11 +6,11 @@ using System.Net;
 
 namespace MOTLookup.Service.Services
 {
-    public class MOTService : IMOTLookupService
+    public class MOTLookupService : IMOTLookupService
     {
         private readonly IMOTApiClient _motApiClient;
 
-        public MOTService(IMOTApiClient motApiClient)
+        public MOTLookupService(IMOTApiClient motApiClient)
         {
             _motApiClient = motApiClient;
         }
@@ -39,8 +39,8 @@ namespace MOTLookup.Service.Services
                             apiResponse.Make,
                             apiResponse.Model,
                             apiResponse.PrimaryColour,
-                            lastMotTest.ExpiryDate,
-                            lastMotTest != null ? lastMotTest.OdometerValue : 0
+                            DateTime.Parse(lastMotTest.ExpiryDate),
+                            lastMotTest.OdometerValue
                         );
                     }
                     else

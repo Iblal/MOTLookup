@@ -3,7 +3,7 @@ using MOTLookup.Models.Shared;
 
 namespace MOTLookup.Service.IServices
 {
-    interface IMOTLookupService
+    public interface IMOTLookupService
     {
         Task<Result<VehicleResponse>> GetVehicleData(string registration);
     }
