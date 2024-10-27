@@ -1,0 +1,75 @@
+﻿@page "/mot-checker"
+@using MOTLookup.Models.Requests
+@using MOTLookup.Models.Responses
+@using MOTLookup.Service.IServices
+@inject IMOTLookupService MotService
+
+<h1>MOT Checker</h1>
+
+<EditForm Model="@vehicleRequest" OnValidSubmit="FetchVehicleData">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="registration">Enter Vehicle Registration Number:</label>
+        <InputText id="registration" class="form-control" @bind-Value="vehicleRequest.Registration" />
+        <ValidationMessage For="@(() => vehicleRequest.Registration)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Check MOT</button>
+</EditForm>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+@if (vehicleResponse != null)
+{
+    <!-- Display vehicle details -->
+    <h2>Vehicle Details</h2>
+    <p><strong>Make:</strong> @vehicleResponse.Make</p>
+    <p><strong>Model:</strong> @vehicleResponse.Model</p>
+    <p><strong>Colour:</strong> @vehicleResponse.Colour</p>
+    <p><strong>MOT Expiry Date:</strong> @vehicleResponse.MotExpiryDate.ToString("dd MMM yyyy")</p>
+    <p><strong>Mileage at Last MOT:</strong> @vehicleResponse.MileageAtLastMot</p>
+}
+
+@code {
+    private VehicleRequest vehicleRequest = new VehicleRequest();
+    private VehicleResponse vehicleResponse;
+    private bool isLoading = false;
+    private string errorMessage;
+
+    private async Task FetchVehicleData()
+    {
+        isLoading = true;
+        errorMessage = null;
+        vehicleResponse = null;
+
+        // if (!vehicleRequest.Registration.IsValidRegistration())
+        // {
+        //     errorMessage = "Please enter a valid registration number.";
+        //     isLoading = false;
+        //     return;
+        // }
+
+        var result = await MotService.GetVehicleData(vehicleRequest.Registration);
+
+        if (result.IsSuccess)
+        {
+            vehicleResponse = result.Data;
+        }
+        else
+        {
+            errorMessage = result.Message;
+        }
+
+        isLoading = false;
+    }
+}
