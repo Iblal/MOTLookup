@@ -11,11 +11,11 @@
 
 The **MOT Lookup** is a web app built with Blazor and .NET 6 that allows users to retrieve MOT vehicle details. By entering a vehicle's registration number, users can see details such as the:
 
-•	Make
-•	Model
-•	Colour
-•	MOT Expiry Date
-•	Mileage at last MOT
+- 	Make
+-	Model
+-	Colour
+-	MOT Expiry Date
+-	Mileage at last MOT
 
 This application uses the UK Government's MOT API for fetching the data.
 
