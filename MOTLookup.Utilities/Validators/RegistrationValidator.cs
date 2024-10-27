@@ -12,20 +12,19 @@ namespace MOTLookup.Utilities.Validators
             // Remove any spaces and convert to uppercase
             registration = registration.Replace(" ", "").ToUpperInvariant();
 
-            // Define regular expressions for each format
+            // General plate formats
             string currentFormat = @"^[A-Z]{2}[0-9]{2}[A-Z]{3}$";
             string prefixFormat = @"^[A-Z][0-9]{1,3}[A-Z]{3}$";
             string suffixFormat = @"^[A-Z]{3}[0-9]{1,3}[A-Z]$";
             string datelessFormat1 = @"^[A-Z]{1,4}[0-9]{1,4}$";
             string datelessFormat2 = @"^[0-9]{1,4}[A-Z]{1,4}$";
 
-            // More specific personalized plate formats
+            //Specific plate formates
             string personalizedFormat1 = @"^[0-9]{1,2}[A-Z]{1,3}$";
             string personalizedFormat2 = @"^[A-Z]{1,2}[0-9]{1,3}$";
             string personalizedFormat3 = @"^[A-Z]{1,3}[0-9]{1,2}$";
             string personalizedFormat4 = @"^[0-9]{1,3}[A-Z]{1,2}$";
 
-            // Combine the regular expressions into a list
             var regexes = new[]
             {
         new Regex(currentFormat),
@@ -39,7 +38,6 @@ namespace MOTLookup.Utilities.Validators
         new Regex(personalizedFormat4)
     };
 
-            // Check if the registration matches any of the formats
             foreach (var regex in regexes)
             {
                 if (regex.IsMatch(registration))
