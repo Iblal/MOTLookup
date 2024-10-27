@@ -22,7 +22,7 @@ public class MOTApiClient : IMOTApiClient
 
         try
         {
-            var response = await _httpClient.GetAsync($"https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests?registration=WM59HPV");
+            var response = await _httpClient.GetAsync($"?registration={registration}");
 
             result.StatusCode = response.StatusCode;
 

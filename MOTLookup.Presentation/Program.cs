@@ -9,12 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-
-builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<IMOTLookupService, MOTLookupService>();
 builder.Services.AddSingleton<IMOTApiClient, MOTApiClient>();
+
 builder.Services.Configure<MotApiSettings>(builder.Configuration.GetSection("MotApiSettings"));
 
 var motApiSettings = builder.Configuration.GetSection("MotApiSettings").Get<MotApiSettings>();
@@ -24,8 +22,6 @@ builder.Services.AddHttpClient<IMOTApiClient, MOTApiClient>(client =>
     client.BaseAddress = new Uri(motApiSettings.BaseUrl);
     client.DefaultRequestHeaders.Add("x-api-key", motApiSettings.ApiKey);
 });
-
-
 
 
 var app = builder.Build();
