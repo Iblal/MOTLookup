@@ -12,9 +12,11 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<IMOTLookupService, MOTLookupService>();
 builder.Services.AddSingleton<IMOTApiClient, MOTApiClient>();
 
-builder.Services.Configure<MotApiSettings>(builder.Configuration.GetSection("MotApiSettings"));
+builder.Services.AddMemoryCache();
 
-var motApiSettings = builder.Configuration.GetSection("MotApiSettings").Get<MotApiSettings>();
+builder.Services.Configure<MOTApiSettings>(builder.Configuration.GetSection("MOTApiSettings"));
+
+var motApiSettings = builder.Configuration.GetSection("MOTApiSettings").Get<MOTApiSettings>();
 
 builder.Services.AddHttpClient<IMOTApiClient, MOTApiClient>(client =>
 {
