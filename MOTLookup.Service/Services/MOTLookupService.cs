@@ -1,4 +1,5 @@
-﻿using MOTLookup.Infrastructure.IClients;
+﻿using Microsoft.Extensions.Logging;
+using MOTLookup.Infrastructure.IClients;
 using MOTLookup.Models.Responses;
 using MOTLookup.Models.Shared;
 using MOTLookup.Service.IServices;
@@ -9,10 +10,12 @@ namespace MOTLookup.Service.Services
     public class MOTLookupService : IMOTLookupService
     {
         private readonly IMOTApiClient _motApiClient;
+        private readonly ILogger<MOTLookupService> _logger;
 
-        public MOTLookupService(IMOTApiClient motApiClient)
+        public MOTLookupService(IMOTApiClient motApiClient, ILogger<MOTLookupService> logger)
         {
             _motApiClient = motApiClient;
+            _logger = logger;
         }
 
         public async Task<Result<VehicleResponse>> GetVehicleData(string registration)
@@ -56,6 +59,7 @@ namespace MOTLookup.Service.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An error occurred in lookup service while processing data for registration {Registration}", registration);
                 result.IsSuccess = false;
                 result.StatusCode = HttpStatusCode.InternalServerError;
                 result.Message = "An unexpected error occurred while processing the data.";
