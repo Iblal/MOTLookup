@@ -48,7 +48,7 @@ public class MOTApiClient : IMOTApiClient
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while fetching data for registration {Registration}", registration);
+            _logger.LogError(ex, "An error occurred while fetching data for registration {Registration} from api-client", registration);
             result.IsSuccess = false;
             result.StatusCode = HttpStatusCode.InternalServerError;
             result.Message = "An unexpected error occurred. Please try again later.";
