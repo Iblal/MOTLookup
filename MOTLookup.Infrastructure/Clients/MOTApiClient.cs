@@ -22,14 +22,20 @@ public class MOTApiClient : IMOTApiClient
 
         try
         {
-            var response = await _httpClient.GetAsync($"?registration={registration}");
+            var response = await _httpClient.GetAsync($"https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests?registration=WM59HPV");
 
             result.StatusCode = response.StatusCode;
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var apiResponses = JsonSerializer.Deserialize<List<MOTAPIResponse>>(content);
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var apiResponses = JsonSerializer.Deserialize<List<MOTAPIResponse>>(content, options);
 
                 result.IsSuccess = true;
                 result.Data = apiResponses;
