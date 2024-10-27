@@ -1,4 +1,7 @@
 ﻿namespace MOTLookup.Models.Requests
 {
-    public sealed record VehicleRequest(string registration);
+    public sealed class VehicleRequest
+    {
+        public string Registration { get; set; } 
+    }
 }

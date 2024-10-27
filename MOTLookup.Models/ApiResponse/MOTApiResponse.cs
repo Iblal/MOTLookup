@@ -12,7 +12,7 @@
 
         public string PrimaryColour { get; set; }
 
-        public DateTime FirstUsedDate { get; set; }
+        public string FirstUsedDate { get; set; }
 
         public List<MOTTestApiResponse> MotTests { get; set; }
 

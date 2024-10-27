@@ -7,7 +7,7 @@
             string model, 
             string colour, 
             DateTime expiryDate, 
-            int mileageAtLastMot)
+            string mileageAtLastMot)
         {
             Make = make;
             Model = model;
@@ -22,7 +22,7 @@
 
         public string Colour { get; private set; }
 
-        public int MileageAtLastMot { get; private set; }
+        public string MileageAtLastMot { get; private set; }
 
         public DateTime MotExpiryDate { get; private set; }
     }
