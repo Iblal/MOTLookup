@@ -10,6 +10,7 @@
     <ProjectReference Include="..\MOTLookup.Infrastructure\MOTLookup.Infrastructure.csproj" />
     <ProjectReference Include="..\MOTLookup.Models\MOTLookup.Models.csproj" />
     <ProjectReference Include="..\MOTLookup.Service\MOTLookup.Service.csproj" />
+    <ProjectReference Include="..\MOTLookup.Utilities\MOTLookup.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

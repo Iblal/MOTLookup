@@ -1,10 +1,16 @@
 ﻿@page "/"
+
 @using MOTLookup.Models.Requests
 @using MOTLookup.Models.Responses
 @using MOTLookup.Service.IServices
+@using MOTLookup.Utilities.Validators
+
 @inject IMOTLookupService MotService
 
-<h1>MOT Checker</h1>
+<div>
+    <img src="car-large.png" alt="Car" class="img-fluid" />
+    <h1>MOT Lookup</h1>
+</div>
 
 <EditForm Model="@vehicleRequest" OnValidSubmit="FetchVehicleData">
     <DataAnnotationsValidator />
@@ -29,17 +35,7 @@
     <div class="alert alert-danger mt-2">@errorMessage</div>
 }
 
-@if (vehicleResponse != null)
-{
-    <div class="mt-2">
-        <h2>Vehicle Details</h2>
-        <p><strong>Make:</strong> @vehicleResponse.Make</p>
-        <p><strong>Model:</strong> @vehicleResponse.Model</p>
-        <p><strong>Colour:</strong> @vehicleResponse.Colour</p>
-        <p><strong>MOT Expiry Date:</strong> @vehicleResponse.MotExpiryDate.ToString("dd MMM yyyy")</p>
-        <p><strong>Mileage at Last MOT:</strong> @vehicleResponse.MileageAtLastMot</p>
-    </div>
-}
+<VehicleDetails VehicleResponse="vehicleResponse" />
 
 @code {
     private VehicleRequest vehicleRequest = new VehicleRequest();
@@ -53,12 +49,12 @@
         errorMessage = null;
         vehicleResponse = null;
 
-        // if (!vehicleRequest.Registration.IsValidRegistration())
-        // {
-        //     errorMessage = "Please enter a valid registration number.";
-        //     isLoading = false;
-        //     return;
-        // }
+        if (!RegistrationValidator.IsValidUKRegistration(vehicleRequest.Registration))
+        {
+            errorMessage = "Please enter a valid registration number.";
+            isLoading = false;
+            return;
+        }
 
         var result = await MotService.GetVehicleData(vehicleRequest.Registration);
 

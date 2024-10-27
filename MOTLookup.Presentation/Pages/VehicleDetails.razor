@@ -1,0 +1,18 @@
+﻿@using MOTLookup.Models.Responses
+
+@if (VehicleResponse != null)
+{
+    <div class="mt-2">
+        <h2>Vehicle Details</h2>
+        <p><strong>Make:</strong> @VehicleResponse.Make</p>
+        <p><strong>Model:</strong> @VehicleResponse.Model</p>
+        <p><strong>Colour:</strong> @VehicleResponse.Colour</p>
+        <p><strong>MOT Expiry Date:</strong> @VehicleResponse.MotExpiryDate.ToString("dd MMM yyyy")</p>
+        <p><strong>Mileage at Last MOT:</strong> @VehicleResponse.MileageAtLastMot</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public VehicleResponse VehicleResponse { get; set; }
+}
