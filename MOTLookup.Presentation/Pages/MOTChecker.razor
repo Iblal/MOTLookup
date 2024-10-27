@@ -1,4 +1,4 @@
-﻿@page "/mot-checker"
+﻿@page "/"
 @using MOTLookup.Models.Requests
 @using MOTLookup.Models.Responses
 @using MOTLookup.Service.IServices
@@ -16,7 +16,7 @@
         <ValidationMessage For="@(() => vehicleRequest.Registration)" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Check MOT</button>
+    <button type="submit" class="btn btn-primary mt-2">Check MOT</button>
 </EditForm>
 
 @if (isLoading)
@@ -26,18 +26,19 @@
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
-    <div class="alert alert-danger">@errorMessage</div>
+    <div class="alert alert-danger mt-2">@errorMessage</div>
 }
 
 @if (vehicleResponse != null)
 {
-    <!-- Display vehicle details -->
-    <h2>Vehicle Details</h2>
-    <p><strong>Make:</strong> @vehicleResponse.Make</p>
-    <p><strong>Model:</strong> @vehicleResponse.Model</p>
-    <p><strong>Colour:</strong> @vehicleResponse.Colour</p>
-    <p><strong>MOT Expiry Date:</strong> @vehicleResponse.MotExpiryDate.ToString("dd MMM yyyy")</p>
-    <p><strong>Mileage at Last MOT:</strong> @vehicleResponse.MileageAtLastMot</p>
+    <div class="mt-2">
+        <h2>Vehicle Details</h2>
+        <p><strong>Make:</strong> @vehicleResponse.Make</p>
+        <p><strong>Model:</strong> @vehicleResponse.Model</p>
+        <p><strong>Colour:</strong> @vehicleResponse.Colour</p>
+        <p><strong>MOT Expiry Date:</strong> @vehicleResponse.MotExpiryDate.ToString("dd MMM yyyy")</p>
+        <p><strong>Mileage at Last MOT:</strong> @vehicleResponse.MileageAtLastMot</p>
+    </div>
 }
 
 @code {
